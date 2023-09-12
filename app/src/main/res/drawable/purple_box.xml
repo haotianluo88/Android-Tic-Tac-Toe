@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!--- Decides the curve radius changing this will affect my stuff too-->
+    <corners android:radius="7dp" />
+
+    <!--- This is the background color -->
+    <solid android:color="@color/purple" />
+
+</shape>

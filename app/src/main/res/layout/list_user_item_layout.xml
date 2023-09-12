@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/boundary"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/purple_box"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/boundary"
+            app:layout_constraintStart_toStartOf="@id/boundary"
+            app:layout_constraintTop_toTopOf="@id/boundary"
+            app:layout_constraintEnd_toEndOf="@id/boundary"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/createUser"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        android:background="@drawable/purple_box"
+        android:text="User 1"
+        android:textAllCaps="false"
+        android:textSize="17dp"
+        android:textColor="@color/white"/>
+</LinearLayout>
