@@ -74,8 +74,8 @@ public class MainActivityData extends ViewModel {
 
         boardSize.setValue(3); // Default board size of 3x3
         winCondition.setValue(3); // Default win condition of 3 in a row
-        markerP1.setValue(R.drawable.circle_marker); // Default markers; Circle for P1, Cross for P2
-        markerP2.setValue(R.drawable.cross_marker);
+        markerP1.setValue(R.drawable.circle_marker_red); // Default markers; Circle for P1, Cross for P2
+        markerP2.setValue(R.drawable.cross_marker_blue);
         gameInProgress.setValue(false);
 
         //for testing purposes create users to see if playerSelection works:)

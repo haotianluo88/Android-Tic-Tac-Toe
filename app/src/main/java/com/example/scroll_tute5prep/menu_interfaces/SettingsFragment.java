@@ -95,9 +95,43 @@ public class SettingsFragment extends Fragment {
 
         // set up initial positions of each spinner
         boardSpinner.setSelection(mainViewModel.getBoardSize() - 2, false); // Offset by a certain amount to get correct pos
-        winSpinner.setSelection(mainViewModel.getBoardSize() - 2, false);
-        // Marker Spinner troubles...
-        // PLACEHOLDER
+        winSpinner.setSelection(mainViewModel.getBoardSize() - 2, false); // the boolean prevents onItemSelectedListener from triggering
+
+        int markerID1 = mainViewModel.getMarkerP1(); // find out what P1 has selected
+        if(markerID1 == R.drawable.cross_marker_red) // set to position accordingly
+        {
+            markerSpinner1.setSelection(0, false);
+        }
+        else if(markerID1 == R.drawable.circle_marker_red)
+        {
+            markerSpinner1.setSelection(1, false);
+        }
+        else if(markerID1 == R.drawable.square_marker_red)
+        {
+            markerSpinner1.setSelection(2, false);
+        }
+        else if(markerID1 == R.drawable.triangle_marker_red)
+        {
+            markerSpinner1.setSelection(3, false);
+        }
+
+        int markerID2 = mainViewModel.getMarkerP2(); // find out what P2 has selected
+        if(markerID2 == R.drawable.cross_marker_blue) // set to position accordingly
+        {
+            markerSpinner2.setSelection(0, false);
+        }
+        else if(markerID2 == R.drawable.circle_marker_blue)
+        {
+            markerSpinner2.setSelection(1, false);
+        }
+        else if(markerID2 == R.drawable.square_marker_blue)
+        {
+            markerSpinner2.setSelection(2, false);
+        }
+        else if(markerID2 == R.drawable.triangle_marker_blue)
+        {
+            markerSpinner2.setSelection(3, false);
+        }
 
         // Set up the home button
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -206,9 +240,19 @@ public class SettingsFragment extends Fragment {
         // Set up Marker Spinner 1
         markerSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l)
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) // When an item is selected
             {
-                // Placeholder
+                switch(pos) // Look at what position the Spinner has selected
+                {
+                    case 0: // Set to cross
+                        mainViewModel.setMarkerP1(R.drawable.cross_marker_red);
+                    case 1: // Set to circle
+                        mainViewModel.setMarkerP1(R.drawable.circle_marker_red);
+                    case 2: // Set to square
+                        mainViewModel.setMarkerP1(R.drawable.square_marker_red);
+                    case 3: // Set to triangle
+                        mainViewModel.setMarkerP1(R.drawable.triangle_marker_red);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -221,7 +265,17 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l)
             {
-                // Placeholder
+                switch(pos) // Look at what position the Spinner has selected
+                {
+                    case 0: // Set to cross
+                        mainViewModel.setMarkerP2(R.drawable.cross_marker_blue);
+                    case 1: // Set to circle
+                        mainViewModel.setMarkerP2(R.drawable.circle_marker_blue);
+                    case 2: // Set to square
+                        mainViewModel.setMarkerP2(R.drawable.square_marker_blue);
+                    case 3: // Set to triangle
+                        mainViewModel.setMarkerP2(R.drawable.triangle_marker_blue);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
