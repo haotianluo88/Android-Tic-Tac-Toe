@@ -10,6 +10,10 @@ import android.os.Bundle;
 
 import com.example.scroll_tute5prep.customise_add_profile.ProfileSelectionFragment;
 import com.example.scroll_tute5prep.customise_add_profile.SelectToCustomiseFragment;
+import com.example.scroll_tute5prep.menu_interfaces.LeaderboardFragment;
+import com.example.scroll_tute5prep.menu_interfaces.MenuFragment;
+import com.example.scroll_tute5prep.menu_interfaces.SettingsFragment;
+import com.example.scroll_tute5prep.game.InGameFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
     SelectToCustomiseFragment selectToCustomiseFragment = new SelectToCustomiseFragment();
     PlayerSelectionFragment selectPlayers = new PlayerSelectionFragment();
     AIOrPlayerFragment AIOrP = new AIOrPlayerFragment();
-    HomeFragment home = new HomeFragment();
+    MenuFragment home = new MenuFragment();
+    SettingsFragment settings = new SettingsFragment();
+    LeaderboardFragment leaderboards = new LeaderboardFragment();
     InGameFragment game = new InGameFragment();
 
     @Override
@@ -62,6 +68,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mainActivityDataViewModel.menuCoordinate.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer)
+            {
+                if(mainActivityDataViewModel.getMenuCoordinate() == 0)
+                {
+                    loadHomeFragment();
+                }
+                else if (mainActivityDataViewModel.getMenuCoordinate() == 1)
+                {
+                    loadSettingsFragment();
+                }
+                else if (mainActivityDataViewModel.getMenuCoordinate() == 2)
+                {
+                    loadLeaderboardsFragment();
+                }
+            }
+        });
+
     }
 
     private void loadProfileSelectionFragment(){
@@ -72,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         {
             fm.beginTransaction().add(R.id.f_container, profileSelectionFragment).commit();
         }
-        if(frag != null)
+        else
         {
             fm.beginTransaction().replace(R.id.f_container, profileSelectionFragment).commit();
         }
@@ -86,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         {
             fm.beginTransaction().add(R.id.f_container, selectToCustomiseFragment).commit();
         }
-        if(frag != null)
+        else
         {
             fm.beginTransaction().replace(R.id.f_container, selectToCustomiseFragment).commit();
         }
@@ -101,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         {
             fm.beginTransaction().add(R.id.f_container, selectPlayers).commit();
         }
-        if(frag != null)
+        else
         {
             fm.beginTransaction().replace(R.id.f_container, selectPlayers).commit();
         }
@@ -116,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         {
             fm.beginTransaction().add(R.id.f_container, game).commit();
         }
-        if(frag != null)
+        else
         {
             fm.beginTransaction().replace(R.id.f_container, game).commit();
         }
@@ -131,9 +156,39 @@ public class MainActivity extends AppCompatActivity {
         {
             fm.beginTransaction().add(R.id.f_container, home).commit();
         }
-        if(frag != null)
+        else
         {
             fm.beginTransaction().replace(R.id.f_container, home).commit();
+        }
+    }
+
+    private void loadSettingsFragment()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment frag = fm.findFragmentById(R.id.f_container);
+
+        if(frag == null)
+        {
+            fm.beginTransaction().add(R.id.f_container, settings).commit();
+        }
+        else
+        {
+            fm.beginTransaction().replace(R.id.f_container, settings).commit();
+        }
+    }
+
+    private void loadLeaderboardsFragment()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment frag = fm.findFragmentById(R.id.f_container);
+
+        if(frag == null)
+        {
+            fm.beginTransaction().add(R.id.f_container, leaderboards).commit();
+        }
+        else
+        {
+            fm.beginTransaction().replace(R.id.f_container, leaderboards).commit();
         }
     }
 
@@ -146,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         {
             fm.beginTransaction().add(R.id.f_container, AIOrP).commit();
         }
-        if(frag != null)
+        else
         {
             fm.beginTransaction().replace(R.id.f_container, AIOrP).commit();
         }

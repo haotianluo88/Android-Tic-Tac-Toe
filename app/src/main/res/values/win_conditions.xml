@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="win_conditions">
+        <item>2 in a row</item>
+        <item>3 in a row</item>
+        <item>4 in a row</item>
+        <item>5 in a row</item>
+        <item>6 in a row</item>
+    </string-array>
+</resources>

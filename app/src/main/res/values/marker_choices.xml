@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="marker_choices">
+        <item>Cross</item>
+        <item>Circle</item>
+        <item>Square</item>
+        <item>Triangle</item>
+    </string-array>
+</resources>

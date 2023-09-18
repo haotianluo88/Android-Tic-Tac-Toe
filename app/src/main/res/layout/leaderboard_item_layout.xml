@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/purple_box"
+        android:padding="10dp">
+
+
+        <ImageView
+            android:id="@+id/leaderboardItemImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/leaderItemGuideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leaderItemGuideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".3" />
+
+        <TextView
+            android:id="@+id/textWinRatePercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\?\?\?%"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/leaderItemGuideline2"
+            app:layout_constraintStart_toEndOf="@+id/leaderItemGuideline3"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/textWinRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Win Rate"
+            android:textSize="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/leaderItemGuideline2"
+            app:layout_constraintStart_toEndOf="@+id/textWinRatePercent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/white"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leaderItemGuideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leaderItemGuideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="120dp" />
+
+        <TextView
+            android:id="@+id/textWins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wins: ???"
+            app:layout_constraintBottom_toTopOf="@+id/leaderItemGuideline2"
+            app:layout_constraintStart_toEndOf="@+id/leaderItemGuideline3"
+            app:layout_constraintTop_toBottomOf="@+id/leaderItemGuideline2"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/textLosses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Losses: ???"
+            app:layout_constraintBottom_toTopOf="@+id/textDraws"
+            app:layout_constraintStart_toEndOf="@+id/leaderItemGuideline3"
+            app:layout_constraintTop_toBottomOf="@+id/textWins"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/textDraws"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Draws: ???"
+            app:layout_constraintBottom_toTopOf="@+id/textTotal"
+            app:layout_constraintStart_toEndOf="@+id/leaderItemGuideline3"
+            app:layout_constraintTop_toBottomOf="@+id/textLosses"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/textTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Games: ???"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/leaderItemGuideline3"
+            app:layout_constraintTop_toBottomOf="@+id/textDraws"
+            android:textColor="@color/white"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
