@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameModeSelect"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    tools:context=".menu_interfaces.ModeSelectFragment" >
+
+    <Button
+        android:id="@+id/selectSingleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dp"
+        android:paddingTop="20dp"
+        android:paddingRight="50dp"
+        android:paddingBottom="20dp"
+        android:text="Versus AI"
+        android:textSize="20dp"
+        app:backgroundTint="#14ae5c"
+        app:layout_constraintTop_toBottomOf="@+id/selectGuideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/selectMultiButton" />
+
+    <Button
+        android:id="@+id/selectMultiButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dp"
+        android:paddingTop="20dp"
+        android:paddingRight="50dp"
+        android:paddingBottom="20dp"
+        android:text="Versus Player"
+        android:textSize="20dp"
+        app:backgroundTint="#14ae5c"
+        app:layout_constraintTop_toBottomOf="@+id/selectSingleButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/selectGuideline4" />
+
+    <ImageView
+        android:id="@+id/selectHomeButton"
+        android:layout_width="81dp"
+        android:layout_height="76dp"
+        android:src="@drawable/home"
+        app:layout_constraintStart_toStartOf="@+id/selectGuideline2"
+        app:layout_constraintTop_toTopOf="@+id/selectGuideline1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/selectGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/selectGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/selectGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/selectGuideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
