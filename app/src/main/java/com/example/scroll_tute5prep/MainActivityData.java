@@ -41,6 +41,8 @@ public class MainActivityData extends ViewModel {
     // 2x2, 3x3 (default), 4x4, 5x5, 6x6; determined by 2, 3, 4, 5, 6 respectively
     public MutableLiveData<Integer> winCondition; // Determines how many in a row = a win
     // 2, 3, 4, 5, 6 in a row
+
+    public MutableLiveData<int[]> boardArray;
     public MutableLiveData<Integer> markerP1; // Determines which marker P1 uses w.r.t. resourceID
     public MutableLiveData<Integer> markerP2; // Determines which marker P2 uses
     // the above 4 MutableLiveData<Integer> values added by ZY
@@ -63,6 +65,7 @@ public class MainActivityData extends ViewModel {
         winCondition = new MutableLiveData<Integer>();
         markerP1 = new MutableLiveData<Integer>();
         markerP2 = new MutableLiveData<Integer>();
+        boardArray = new MutableLiveData<int[]>();
 
         gameInProgress = new MutableLiveData<Boolean>();
 
@@ -77,6 +80,7 @@ public class MainActivityData extends ViewModel {
         markerP1.setValue(R.drawable.circle_marker_red); // Default markers; Circle for P1, Cross for P2
         markerP2.setValue(R.drawable.cross_marker_blue);
         gameInProgress.setValue(false);
+        boardArray.setValue(new int[9]);
 
         //for testing purposes create users to see if playerSelection works:)
         currUsers.getValue().add(new User("Janet", R.drawable.profile_2));
@@ -201,6 +205,14 @@ public class MainActivityData extends ViewModel {
     public int getWinCond()
     {
         return winCondition.getValue();
+    }
+
+    public void setBoardArray(int pSize) {
+        boardArray.setValue(new int[pSize]);
+    }
+
+    public int[] getBoardArray() {
+        return boardArray.getValue();
     }
     // Player 1's marker
     public void setMarkerP1(int pMarker)

@@ -16,15 +16,17 @@ public class GameStat {
         wins = 0;
         loses = 0;
         draws = 0;
-        winRate = 0;
+        winRate = 0.0;
     }
 //    TEST
-
-    public void setDraws(int draws) {
-        this.draws = draws;
+    public void setWins(int wins) {
+    this.wins = wins;
     }
     public void setLoses(int loses) {
         this.loses = loses;
+    }
+    public void setDraws(int draws) {
+        this.draws = draws;
     }
     public void setTotalGames(int totalGames) {
         this.totalGames = totalGames;
@@ -32,9 +34,30 @@ public class GameStat {
     public void setWinRate(double winRate) {
         this.winRate = winRate;
     }
-    public void setWins(int wins) {
-        this.wins = wins;
+
+    public void updateWins(int wins) {
+        this.wins = this.wins + wins;
+        updateTotalGames();
+        updateWinRate();
     }
+    public void updateLoses(int loses) {
+        this.loses = this.loses + loses;
+        updateTotalGames();
+        updateWinRate();
+    }
+    public void updateDraws(int draws) {
+        this.draws = this.draws + draws;
+        updateTotalGames();
+        updateWinRate();
+    }
+    public void updateTotalGames(){
+        this.totalGames = wins + draws + loses;
+    }
+    public void updateWinRate(){
+        this.winRate = (wins/totalGames) * 100;
+    }
+
+
 
     public int getTotalGames(){return totalGames;}
     public int getWins(){return wins;}

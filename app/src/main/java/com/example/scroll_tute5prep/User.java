@@ -52,7 +52,6 @@ public class User {
                 result = true;
             }
         }
-
         return result;
     }
 }
