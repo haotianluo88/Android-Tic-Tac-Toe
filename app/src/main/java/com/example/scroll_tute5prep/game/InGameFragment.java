@@ -326,7 +326,6 @@ public class InGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 restartGame();
-                mainViewModel.resetPlayers();
                 mainViewModel.setMenuCoordinate(1);
             }
         });

@@ -138,7 +138,15 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                mainViewModel.setMenuCoordinate(0); // Set coordinate to go back to home screen
+                if(mainViewModel.getGameInProgress())
+                {
+                    mainViewModel.setStartGameCoordinate(3); // Set coordinate to go back to home screen
+                }
+                else
+                {
+                    mainViewModel.resetPlayers(); //sorry I need this here to make sure its reset everytime we go to menu
+                    mainViewModel.setMenuCoordinate(0); // Set coordinate to go back to home screen
+                }
             }
         });
 
@@ -294,5 +302,19 @@ public class SettingsFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        View view = getView();
+        ImageView homeButton = view.findViewById(R.id.settingsHomeButton);
+        MainActivityData mainViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
+
+        if (mainViewModel.getGameInProgress())
+        {
+            homeButton.setImageResource(R.drawable.back_arrow);
+        }
+
     }
 }
