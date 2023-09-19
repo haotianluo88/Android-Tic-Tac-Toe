@@ -29,6 +29,7 @@ public class MainActivityData extends ViewModel {
     // 0 = Home
     // 1 = Settings
     // 2 = Leaderboard
+    // 3 = In game
     // added by ZY
 
     public MutableLiveData<User> needToUpdate;

@@ -142,6 +142,7 @@ public class SettingsFragment extends Fragment {
                 if(mainViewModel.getGameInProgress())
                 {
                     mainViewModel.setStartGameCoordinate(3); // Set coordinate to go back to home screen
+                    mainViewModel.setMenuCoordinate(3);
                 }
                 else
                 {

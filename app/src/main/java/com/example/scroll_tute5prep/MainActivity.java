@@ -84,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
                 {
                     loadLeaderboardsFragment();
                 }
+                else if (mainActivityDataViewModel.getMenuCoordinate() == 3)
+                {
+                    loadInGameFragment();
+                }
             }
         });
 

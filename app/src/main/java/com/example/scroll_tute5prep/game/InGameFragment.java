@@ -44,14 +44,9 @@ public class InGameFragment extends Fragment {
 
     }
 
-//////////////////////////// GET THESE VARIABLES FROM OTHER FRAGMENTS ETC /////////////////////////////////////////////////
-
     int gridSize;
     int winCond;
     boolean playAI;
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     int[] grid1DArray;
     int[][] grid2DArray;
     int movesLeft;
@@ -104,7 +99,6 @@ public class InGameFragment extends Fragment {
             timer.setBase(savedInstanceState.getLong("timer"));
         }
         timer.start();
-//        mainViewModel.setGameInProgress(false);
 //      Creates the first entry in the linked list which is an empty array
         gridLinkedListString = convertArrayToString(grid1DArray);
         if (gridLinkedList.isEmpty())
@@ -146,8 +140,6 @@ public class InGameFragment extends Fragment {
                 boardRowLayout.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT));
             }
 
-            boardRowLayout.setOrientation(LinearLayout.HORIZONTAL);
-            boardRowLayout.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
             boardRowLayout.setWeightSum(gridSize);
 //          Adds the linear layout to the board layout
             boardLayout.addView(boardRowLayout);
@@ -386,15 +378,6 @@ public class InGameFragment extends Fragment {
             }
         });
 
-//        settingsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                restartGame();
-////                mainViewModel.resetPlayers();
-//                mainViewModel.setMenuCoordinate(1);
-//            }
-//        });
-
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -622,7 +605,9 @@ public class InGameFragment extends Fragment {
                     restartGame();
                     dialog.dismiss();
                     mainViewModel.resetPlayers();
+                    mainViewModel.setStartGameCoordinate(0);
                     mainViewModel.setMenuCoordinate(0);
+
                 }
             });
         }
@@ -671,6 +656,7 @@ public class InGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                mainViewModel.setStartGameCoordinate(0);
                 mainViewModel.setMenuCoordinate(0);
             }
         });
@@ -681,7 +667,9 @@ public class InGameFragment extends Fragment {
                 restartGame();
                 dialog.dismiss();
                 mainViewModel.resetPlayers();
+                mainViewModel.setStartGameCoordinate(0);
                 mainViewModel.setMenuCoordinate(0);
+
             }
         });
 
