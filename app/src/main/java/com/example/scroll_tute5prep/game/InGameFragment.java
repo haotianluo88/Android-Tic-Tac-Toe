@@ -521,7 +521,6 @@ public class InGameFragment extends Fragment {
                 mainViewModel.getPlayerOne().getGameStat().updateWins(1);
                 if(!playAI) {
                     mainViewModel.getPlayerTwo().getGameStat().updateLoses(1);
-                    mainViewModel.getPlayerTwo().getGameStat().setWinRate(50);
                 }
                 gameOverMessage = mainViewModel.getPlayerOne().getName() + " is the winner!";
 

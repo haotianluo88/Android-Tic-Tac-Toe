@@ -35,26 +35,28 @@ public class GameStat {
         this.winRate = winRate;
     }
 
-    public void updateWins(int wins) {
-        this.wins = this.wins + wins;
+    public void updateWins(int pWins) {
+        this.wins = this.wins + pWins;
         updateTotalGames();
         updateWinRate();
     }
-    public void updateLoses(int loses) {
-        this.loses = this.loses + loses;
+    public void updateLoses(int pLoses) {
+        this.loses = this.loses + pLoses;
         updateTotalGames();
         updateWinRate();
     }
-    public void updateDraws(int draws) {
-        this.draws = this.draws + draws;
+    public void updateDraws(int pDraws) {
+        this.draws = this.draws + pDraws;
         updateTotalGames();
         updateWinRate();
     }
     public void updateTotalGames(){
-        this.totalGames = wins + draws + loses;
+        this.totalGames = this.wins + this.draws + this.loses;
     }
     public void updateWinRate(){
-        this.winRate = (wins/totalGames) * 100;
+        double dWins = this.wins;
+        double dTotal = this.totalGames;
+        this.winRate = (dWins) / (dTotal) * 100;
     }
 
 

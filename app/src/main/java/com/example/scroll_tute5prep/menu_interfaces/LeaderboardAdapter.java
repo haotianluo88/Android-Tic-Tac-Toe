@@ -32,7 +32,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardViewHold
     public void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position) {
         User theUser = userData.get(position);
         holder.profileImage.setImageResource(theUser.getResourceId());
-        holder.winRate.setText(String.format("%.0f",(theUser.getGameStat()).getWinRate() * 100) + "%");
+        holder.winRate.setText(String.format("%.0f",(theUser.getGameStat()).getWinRate()) + "%");
         holder.countWin.setText("Wins: " + (theUser.getGameStat()).getWins());
         holder.countLose.setText("Losses: " + (theUser.getGameStat()).getLoses());
         holder.countDraw.setText("Draws: " + (theUser.getGameStat()).getDraws());
