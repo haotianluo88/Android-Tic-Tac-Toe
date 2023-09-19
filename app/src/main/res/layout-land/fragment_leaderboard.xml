@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLeaderboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    tools:context=".menu_interfaces.LeaderboardFragment" >
+
+    <ImageView
+        android:id="@+id/leaderboardGhost"
+        android:layout_width="319dp"
+        android:layout_height="308dp"
+        android:src="@drawable/noun_sad_ghost_5257154"
+        app:layout_constraintBottom_toBottomOf="@+id/leaderboardRecycler"
+        app:layout_constraintEnd_toEndOf="@+id/leaderboardRecycler"
+        app:layout_constraintStart_toStartOf="@+id/leaderboardRecycler"
+        app:layout_constraintTop_toTopOf="@+id/leaderboardRecycler" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/leaderboardRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leaderboardGuideline1"
+        app:layout_constraintBottom_toTopOf="@+id/leaderboardGuideline2"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leaderboardGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leaderboardGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".9" />
+
+    <ImageView
+        android:id="@+id/leaderboardHomeButton"
+        android:layout_width="81dp"
+        android:layout_height="76dp"
+        android:src="@drawable/home"
+        app:layout_constraintStart_toStartOf="@+id/leaderboardGuideline4"
+        app:layout_constraintTop_toTopOf="@+id/leaderboardGuideline3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leaderboardGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leaderboardGuideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <TextView
+        android:id="@+id/textGameStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game Statistics"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:background="@drawable/purple_box"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/leaderboardRecycler"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
