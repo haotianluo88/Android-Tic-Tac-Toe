@@ -71,24 +71,16 @@ public class InGameFragment extends Fragment {
     }
 
 //////////////////////////// GET THESE VARIABLES FROM OTHER FRAGMENTS ETC /////////////////////////////////////////////////
-    int gridSize = 3;
-    int winCond = 3;
-    boolean playAI = true;
 
-    boolean gameInProgress;
-    String playerOneProfileStr = "square_marker_red";
-    String playerTwoProfileStr = "circle_marker_blue";
-    String playerOneNameStr = "player One";
-    String playerTwoNameStr = "player Two";
-    String playerOneMarkerStr = "square_marker_red";
-    String playerTwoMarkerStr = "circle_marker_blue";
-
+    int gridSize;
+    int winCond;
+    boolean playAI;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    int[] grid1DArray = new int[gridSize * gridSize];
-    int[][] grid2DArray = new int[gridSize][gridSize];
-    int movesLeft = gridSize * gridSize;
+    int[] grid1DArray;
+    int[][] grid2DArray;
+    int movesLeft;
     int whosTurn = 1;
     int movesCount = 0;
     int maxMoveCount = 0;
@@ -100,7 +92,6 @@ public class InGameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_game, container, false);
         TextView playerOneName = rootView.findViewById(R.id.playerOneName);
         TextView playerTwoName = rootView.findViewById(R.id.playerTwoName);
@@ -119,16 +110,23 @@ public class InGameFragment extends Fragment {
         // Creating our MainActivityData in order to fetch information to and from other parts of the app
         MainActivityData mainViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
 
+        gridSize = mainViewModel.getBoardSize();
+        winCond = mainViewModel.getWinCond();
+        playAI = mainViewModel.getVsAI();
+
+        grid1DArray = new int[gridSize * gridSize];
+        grid2DArray = new int[gridSize][gridSize];
+        movesLeft = gridSize * gridSize;
 //      Start a timer
         timer.start();
-        gameInProgress = true;
+        mainViewModel.setGameInProgress(true);
 //      Creates the first entry in the linked list which is an empty array
         gridLinkedListString = convertArrayToString(grid1DArray);
         gridLinkedList.insertNode(0, 0, gridLinkedListString);
 
 //      Set player one icon and name
-        playerOneName.setText(playerOneNameStr);
-        playerOneProfile.setImageResource(getResources().getIdentifier(playerOneProfileStr, "drawable", getActivity().getPackageName()));
+        playerOneName.setText(mainViewModel.getPlayerOne().getName());
+        playerOneProfile.setImageResource(mainViewModel.getPlayerOne().getResourceId());
 
 //      Set player two icon and name depending on if it's AI or not
         if (playAI) {
@@ -138,8 +136,8 @@ public class InGameFragment extends Fragment {
             /////////////////////////// custom picture for ai?
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else {
-            playerTwoName.setText(playerTwoNameStr);
-            playerTwoProfile.setImageResource(getResources().getIdentifier(playerTwoProfileStr, "drawable", getActivity().getPackageName()));
+            playerTwoName.setText(mainViewModel.getPlayerTwo().getName());
+            playerTwoProfile.setImageResource(mainViewModel.getPlayerTwo().getResourceId());
         }
 
 //      Create all the grids depending on the grid size
@@ -158,7 +156,7 @@ public class InGameFragment extends Fragment {
 //          Adds the linear layout to the board layout
             boardLayout.addView(boardRowLayout);
             for (int j = 0; j < gridSize; j++) {
-//              Creates an image view with propeties depending on the orientation of the device
+//              Creates an image view with properties depending on the orientation of the device
                 ImageView imageView = new ImageView(getActivity());
                 imageView.setId(i * gridSize + j + 1);
                 imageView.setImageResource(R.drawable.transparent);
@@ -215,7 +213,7 @@ public class InGameFragment extends Fragment {
                                     winner = checkWin(grid2DArray, gridSize, winCond);
                                 }
 //                              Updates the board's ImageViews
-                                drawGrid(rootView, grid2DArray, gridSize, playerOneMarkerStr, playerTwoMarkerStr);
+                                drawGrid(rootView, grid2DArray, gridSize, mainViewModel);
 //                          Two player mode
                             } else {
 //                              Increment moves count by one and reduce moves left by one
@@ -247,7 +245,7 @@ public class InGameFragment extends Fragment {
                                     whosTurn--;
                                 }
 //                              Updates the board's ImageViews
-                                drawGrid(rootView, grid2DArray, gridSize, playerOneMarkerStr, playerTwoMarkerStr);
+                                drawGrid(rootView, grid2DArray, gridSize, mainViewModel);
 //                              Checks whether the game is over or not
                                 winner = checkWin(grid2DArray, gridSize, winCond);
                             }
@@ -256,7 +254,7 @@ public class InGameFragment extends Fragment {
                             movesLeftText.setText("Moves Left: " + String.valueOf(movesLeft));
                             movesCountText.setText("Moves Count: " + String.valueOf(movesCount));
 //                          Displays game over pop up
-                            displayGameOverMessage(winner, timer);
+                            displayGameOverMessage(winner, timer, mainViewModel);
                         }
                     }
                 });
@@ -283,7 +281,7 @@ public class InGameFragment extends Fragment {
                     grid1DArray = convertStringToIntArray(gridLinkedListString);
                     grid2DArray = convert1DArrayTo2DArray(grid1DArray, gridSize);
 //                  Updates board
-                    drawGrid(rootView, grid2DArray, gridSize, playerOneMarkerStr, playerTwoMarkerStr);
+                    drawGrid(rootView, grid2DArray, gridSize, mainViewModel);
 //                  Updates moves count and moves left depending on if playing AI or not
                     movesCount--;
                     movesLeft++;
@@ -320,7 +318,7 @@ public class InGameFragment extends Fragment {
                     grid1DArray = convertStringToIntArray(gridLinkedListString);
                     grid2DArray = convert1DArrayTo2DArray(grid1DArray, gridSize);
 //                  Updates board
-                    drawGrid(rootView, grid2DArray, gridSize, playerOneMarkerStr, playerTwoMarkerStr);
+                    drawGrid(rootView, grid2DArray, gridSize, mainViewModel);
 //                  Updates moves count and moves left depending on if playing AI or not
                     movesCount++;
                     movesLeft--;
@@ -341,29 +339,28 @@ public class InGameFragment extends Fragment {
             }
         });
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                restartGame();
+                mainViewModel.resetPlayers();
+                mainViewModel.setMenuCoordinate(1);
             }
         });
 //        //////////Settings button just resets the game right now
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         return rootView;
     }
 
 //  Draws the grid with the correct information
-    private void drawGrid(View rootView, int[][] grid2DArray, int gridSize, String playerOneMarkerStr, String playerTwoMarkerStr) {
+    private void drawGrid(View rootView, int[][] grid2DArray, int gridSize, MainActivityData mainViewModel) {
         ImageView image;
         int index = 0;
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 image = rootView.findViewById(index + 1);
                 if (grid2DArray[i][j] == 1) {
-                    image.setImageResource(getResources().getIdentifier(playerOneMarkerStr, "drawable", getActivity().getPackageName()));
+                    image.setImageResource(mainViewModel.getMarkerP1());
                 } else if (grid2DArray[i][j] == 2) {
-                    image.setImageResource(getResources().getIdentifier(playerTwoMarkerStr, "drawable", getActivity().getPackageName()));
+                    image.setImageResource(mainViewModel.getMarkerP2());
                 } else if (grid2DArray[i][j] == 0) {
                     image.setImageResource(R.drawable.transparent);
                 }
@@ -498,7 +495,7 @@ public class InGameFragment extends Fragment {
     }
 
 //  Displays game over pop up
-    private void displayGameOverMessage(int winner, Chronometer timer) {
+    private void displayGameOverMessage(int winner, Chronometer timer, MainActivityData mainViewModel) {
         if (winner != 0) {
             timer.stop();
 
@@ -519,9 +516,9 @@ public class InGameFragment extends Fragment {
             String gameOverMessage;
 //          Set the game over message depending on the outcome of the game
             if (winner == 1) {
-                gameOverMessage = playerOneNameStr + " is the winner!";
+                gameOverMessage = mainViewModel.getPlayerOne().getName() + " is the winner!";
             } else if (winner == 2) {
-                gameOverMessage = playerTwoNameStr + " is the winner!";
+                gameOverMessage = mainViewModel.getPlayerTwo().getName() + " is the winner!";
             } else {
                 gameOverMessage = "Game is a draw";
             }
@@ -538,15 +535,17 @@ public class InGameFragment extends Fragment {
                     dialog.dismiss();
                 }
             });
-//////////////////////////// CURRENTLY DOES NOTHING ////////////////////////////////////////////////////
 //          Returns to menu
             exitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    text.setText("SUS");
+                    restartGame();
+                    dialog.dismiss();
+                    mainViewModel.setGameInProgress(false);
+                    mainViewModel.resetPlayers();
+                    mainViewModel.setMenuCoordinate(0);
                 }
             });
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }
 
@@ -569,6 +568,7 @@ public class InGameFragment extends Fragment {
 //  Resets all game parameters
 ///////////////////////// THIS MAY BE UNECESSARY AS SOMEONE ELSE MAY HAVE ALREADY IMPLEMENTED THIS ////////////////////
     public void restartGame() {
+        MainActivityData mainViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
         LinearLayout playerOneLayout = getActivity().findViewById(R.id.playerOneLayout);
         LinearLayout playerTwoLayout = getActivity().findViewById(R.id.playerTwoLayout);
         TextView movesLeftText = getActivity().findViewById(R.id.movesLeft);
@@ -583,6 +583,8 @@ public class InGameFragment extends Fragment {
         winner = 0;
 
         gridLinkedList = new LinkedList();
+        gridLinkedListString = convertArrayToString(grid1DArray);
+        gridLinkedList.insertNode(0, 0, gridLinkedListString);
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
 
@@ -591,7 +593,7 @@ public class InGameFragment extends Fragment {
 
         movesLeftText.setText(String.valueOf("Moves Left: " + movesLeft));
         movesCountText.setText(String.valueOf("Moves Count: " + movesCount));
-        drawGrid(getView(), grid2DArray, gridSize, playerOneMarkerStr, playerTwoMarkerStr);
+        drawGrid(getView(), grid2DArray, gridSize, mainViewModel);
 
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
