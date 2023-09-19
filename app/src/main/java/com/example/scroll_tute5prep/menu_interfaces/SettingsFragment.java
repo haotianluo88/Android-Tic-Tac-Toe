@@ -280,19 +280,19 @@ public class SettingsFragment extends Fragment {
             {
                 if(pos == 0)
                 {
-                    mainViewModel.setMarkerP1(R.drawable.cross_marker_blue);
+                    mainViewModel.setMarkerP2(R.drawable.cross_marker_blue);
                 }
                 else if(pos == 1)
                 {
-                    mainViewModel.setMarkerP1(R.drawable.circle_marker_blue);
+                    mainViewModel.setMarkerP2(R.drawable.circle_marker_blue);
                 }
                 else if(pos == 2)
                 {
-                    mainViewModel.setMarkerP1(R.drawable.square_marker_blue);
+                    mainViewModel.setMarkerP2(R.drawable.square_marker_blue);
                 }
                 else if(pos == 3)
                 {
-                    mainViewModel.setMarkerP1(R.drawable.triangle_marker_blue);
+                    mainViewModel.setMarkerP2(R.drawable.triangle_marker_blue);
                 }
             }
             @Override
