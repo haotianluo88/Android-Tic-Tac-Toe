@@ -80,10 +80,10 @@ public class MainActivityData extends ViewModel {
 
         //for testing purposes create users to see if playerSelection works:)
         currUsers.getValue().add(new User("Janet", R.drawable.profile_2));
-        currUsers.getValue().add(new User("Janet", R.drawable.profile_4));
-        currUsers.getValue().add(new User("Janet", R.drawable.profile_1));
-        currUsers.getValue().add(new User("Janet", R.drawable.profile_6));
-        currUsers.getValue().add(new User("Janet", R.drawable.profile_3));
+        currUsers.getValue().add(new User("Haotian", R.drawable.profile_4));
+        currUsers.getValue().add(new User("Zu", R.drawable.profile_1));
+        currUsers.getValue().add(new User("Baby", R.drawable.profile_6));
+        currUsers.getValue().add(new User("Ellie", R.drawable.profile_3));
 
     }
 
