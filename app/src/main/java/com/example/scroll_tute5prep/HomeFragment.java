@@ -78,7 +78,13 @@ public class HomeFragment extends Fragment {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivityDataViewModel.setStartGameCoordinate(1);
+                if(mainActivityDataViewModel.getGameInProgress())
+                {
+                    mainActivityDataViewModel.setStartGameCoordinate(3);
+                }
+                else {
+                    mainActivityDataViewModel.setStartGameCoordinate(1);
+                }
             }
         });
 
