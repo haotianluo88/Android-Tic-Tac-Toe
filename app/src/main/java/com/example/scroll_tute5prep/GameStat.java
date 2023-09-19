@@ -18,6 +18,7 @@ public class GameStat {
         draws = 0;
         winRate = 0;
     }
+//    TEST
 
     public void setDraws(int draws) {
         this.draws = draws;
