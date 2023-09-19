@@ -43,6 +43,7 @@ public class MainActivityData extends ViewModel {
     // 2, 3, 4, 5, 6 in a row
 
     public MutableLiveData<int[]> boardArray;
+
     public MutableLiveData<Integer> markerP1; // Determines which marker P1 uses w.r.t. resourceID
     public MutableLiveData<Integer> markerP2; // Determines which marker P2 uses
     // the above 4 MutableLiveData<Integer> values added by ZY
@@ -184,6 +185,7 @@ public class MainActivityData extends ViewModel {
 
 
 
+
     public void setVsAI(boolean x) {vsAI.setValue(x);}
     public boolean getVsAI() {return vsAI.getValue();}
 
@@ -213,6 +215,10 @@ public class MainActivityData extends ViewModel {
 
     public int[] getBoardArray() {
         return boardArray.getValue();
+    }
+
+    public void resetBoardArray() {
+        boardArray.setValue(new int[boardSize.getValue()* boardSize.getValue()]);
     }
     // Player 1's marker
     public void setMarkerP1(int pMarker)

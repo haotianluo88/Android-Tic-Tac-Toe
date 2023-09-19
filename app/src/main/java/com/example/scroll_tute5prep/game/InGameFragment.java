@@ -102,7 +102,6 @@ public class InGameFragment extends Fragment {
         gridLinkedList.insertNode(0, 0, gridLinkedListString);
 
 
-
 //      Set player one icon and name
         playerOneName.setText(mainViewModel.getPlayerOne().getName());
         playerOneProfile.setImageResource(mainViewModel.getPlayerOne().getResourceId());
@@ -325,7 +324,8 @@ public class InGameFragment extends Fragment {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                restartGame();
+//                restartGame();
+//                mainViewModel.resetPlayers();
                 mainViewModel.setMenuCoordinate(1);
             }
         });
@@ -645,6 +645,7 @@ public class InGameFragment extends Fragment {
         gridLinkedList = new LinkedList();
         gridLinkedListString = convertArrayToString(grid1DArray);
         gridLinkedList.insertNode(0, 0, gridLinkedListString);
+        mainViewModel.resetBoardArray();
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
 
