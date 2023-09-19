@@ -276,8 +276,18 @@ public class InGameFragment extends Fragment {
 //                  Changes the turn to the opposition. This only applies in two player mode
                     if (whosTurn == 1) {
                         whosTurn++;
+                        // Changes the "whose turn is it?" visual (red circle) accordingly, but only if it's not in AI mode -ZY
+                        if(!playAI) {
+                            playerOneLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
+                            playerTwoLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_red_border));
+                        }
                     } else {
                         whosTurn--;
+                        // Changes the "whose turn is it?" visual (red circle) accordingly, but only if it's not in AI mode -ZY
+                        if(!playAI) {
+                            playerTwoLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
+                            playerOneLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_red_border));
+                        }
                     }
 //                  Updates moves text
                     movesLeftText.setText("Moves Left: " + movesLeft);
@@ -313,8 +323,18 @@ public class InGameFragment extends Fragment {
 //                  Changes the turn to the opposition. This only applies in two player mode
                     if (whosTurn == 1) {
                         whosTurn++;
+                        // Changes the "whose turn is it?" visual (red circle) accordingly, but only if it's not in AI mode -ZY
+                        if(!playAI) {
+                            playerOneLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
+                            playerTwoLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_red_border));
+                        }
                     } else {
                         whosTurn--;
+                        // Changes the "whose turn is it?" visual (red circle) accordingly, but only if it's not in AI mode -ZY
+                        if(!playAI) {
+                            playerTwoLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
+                            playerOneLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_red_border));
+                        }
                     }
 //                  Updates moves text
                     movesLeftText.setText("Moves Left: " + movesLeft);
