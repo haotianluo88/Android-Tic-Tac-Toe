@@ -54,7 +54,7 @@ public class InGameFragment extends Fragment {
     int[][] grid2DArray;
     int movesLeft;
     int whosTurn = 1;
-    int movesCount = 0;
+    int movesCount;
     int maxMoveCount = 0;
     int winner = 0;
     Chronometer timer;
@@ -90,10 +90,10 @@ public class InGameFragment extends Fragment {
         winCond = mainViewModel.getWinCond();
         playAI = mainViewModel.getVsAI();
 
-//        grid1DArray = new int[gridSize * gridSize];
-        grid1DArray = mainViewModel.getBoardArray();
+        grid1DArray = mainViewModel.getGame().getGridArray();
         grid2DArray = convert1DArrayTo2DArray(grid1DArray, gridSize);
-        movesLeft = gridSize * gridSize;
+        movesLeft = mainViewModel.getGame().getMovesLeft();
+        movesCount = mainViewModel.getGame().getMovescount();
 //      Start a timer
         timer.start();
         mainViewModel.setGameInProgress(true);
@@ -101,6 +101,8 @@ public class InGameFragment extends Fragment {
         gridLinkedListString = convertArrayToString(grid1DArray);
         gridLinkedList.insertNode(0, 0, gridLinkedListString);
 
+        movesLeftText.setText("Moves Left: " + movesLeft);
+        movesCountText.setText("Moves Count: " + movesCount);
 
 //      Set player one icon and name
         playerOneName.setText(mainViewModel.getPlayerOne().getName());
@@ -645,7 +647,13 @@ public class InGameFragment extends Fragment {
         gridLinkedList = new LinkedList();
         gridLinkedListString = convertArrayToString(grid1DArray);
         gridLinkedList.insertNode(0, 0, gridLinkedListString);
-        mainViewModel.resetBoardArray();
+
+//        mainViewModel.resetBoardArray();
+
+        mainViewModel.getGame().setGridArray(gridSize * gridSize);
+        mainViewModel.getGame().setMovescount(0);
+        mainViewModel.getGame().setMovesLeft(gridSize * gridSize);
+
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
 

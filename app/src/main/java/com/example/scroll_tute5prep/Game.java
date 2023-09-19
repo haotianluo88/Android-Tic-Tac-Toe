@@ -1,4 +1,4 @@
-package com.example.scroll_tute5prep.game;
+package com.example.scroll_tute5prep;
 
 import android.widget.Chronometer;
 
@@ -18,8 +18,8 @@ public class Game {
         return gridArray;
     }
 
-    public void setGridArray(int[] gridArray) {
-        this.gridArray = gridArray;
+    public void setGridArray(int gridSize) {
+        this.gridArray = new int[gridSize];
     }
 
     public int getMovescount() {

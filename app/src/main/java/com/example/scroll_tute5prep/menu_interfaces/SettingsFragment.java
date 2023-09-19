@@ -166,7 +166,10 @@ public class SettingsFragment extends Fragment {
                         {
                             mainViewModel.setGameInProgress(false); // Set this to false, which SHOULD CLEAR ALL THINGS RELATED TO THE GAME IN MainActivity
                             mainViewModel.setBoardSize(pos + 2); // Set new board size
-                            mainViewModel.setBoardArray((pos + 2) * (pos + 2));
+                            mainViewModel.getGame().setGridArray((pos + 2) * (pos + 2));
+                            mainViewModel.getGame().setMovescount(0);
+                            mainViewModel.getGame().setMovesLeft((pos + 2) * (pos + 2));
+//                            mainViewModel.setBoardArray((pos + 2) * (pos + 2));
                         }
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -190,7 +193,10 @@ public class SettingsFragment extends Fragment {
                 else // If no game is ongoing
                 {
                     mainViewModel.setBoardSize(pos + 2); // New board size with no resistance
-                    mainViewModel.setBoardArray((pos + 2) * (pos + 2));
+//                    mainViewModel.setBoardArray((pos + 2) * (pos + 2));
+                    mainViewModel.getGame().setGridArray((pos + 2) * (pos + 2));
+//                    mainViewModel.getGame().setMovescount(0);
+//                    mainViewModel.getGame().setMovesLeft((pos + 2) * (pos + 2));
                 }
             }
             @Override

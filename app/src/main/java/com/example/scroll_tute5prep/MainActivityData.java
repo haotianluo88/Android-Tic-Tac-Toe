@@ -44,6 +44,8 @@ public class MainActivityData extends ViewModel {
 
     public MutableLiveData<int[]> boardArray;
 
+    public MutableLiveData<Game> gameData;
+
     public MutableLiveData<Integer> markerP1; // Determines which marker P1 uses w.r.t. resourceID
     public MutableLiveData<Integer> markerP2; // Determines which marker P2 uses
     // the above 4 MutableLiveData<Integer> values added by ZY
@@ -67,6 +69,7 @@ public class MainActivityData extends ViewModel {
         markerP1 = new MutableLiveData<Integer>();
         markerP2 = new MutableLiveData<Integer>();
         boardArray = new MutableLiveData<int[]>();
+        gameData = new MutableLiveData<Game>();
 
         gameInProgress = new MutableLiveData<Boolean>();
 
@@ -82,6 +85,7 @@ public class MainActivityData extends ViewModel {
         markerP2.setValue(R.drawable.cross_marker_blue);
         gameInProgress.setValue(false);
         boardArray.setValue(new int[9]);
+        gameData.setValue(new Game(new int[9], 9, 1));
 
         //for testing purposes create users to see if playerSelection works:)
         currUsers.getValue().add(new User("Janet", R.drawable.profile_2));
@@ -219,6 +223,20 @@ public class MainActivityData extends ViewModel {
 
     public void resetBoardArray() {
         boardArray.setValue(new int[boardSize.getValue()* boardSize.getValue()]);
+    }
+
+    public Game getGame() {
+        return gameData.getValue();
+    }
+
+    public void setGame(Game game) {
+        gameData.setValue(game);
+    }
+
+    public void resetGame(int gridSize) {
+        gameData.getValue().setGridArray(gridSize * gridSize);
+        gameData.getValue().setMovescount(0);
+        gameData.getValue().setMovesLeft(gridSize * gridSize);
     }
     // Player 1's marker
     public void setMarkerP1(int pMarker)
