@@ -60,7 +60,6 @@ public class InGameFragment extends Fragment {
     int maxMoveCount;
     int winner;
     Chronometer timer;
-    int timerInt;
     LinkedList gridLinkedList;
     String gridLinkedListString;
 
@@ -80,19 +79,16 @@ public class InGameFragment extends Fragment {
         LinearLayout boardLayout = rootView.findViewById(R.id.board);
         Button undoButton = rootView.findViewById(R.id.undoButton);
         Button redoButton = rootView.findViewById(R.id.redoButton);
-        Button settingsButton = rootView.findViewById(R.id.settingsButton);
-        ImageView homeButton = rootView.findViewById(R.id.homeButton);
         ImageView pauseButton = rootView.findViewById(R.id.pauseButton);
 
 
         // Creating our MainActivityData in order to fetch information to and from other parts of the app
         MainActivityData mainViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
 
-
+        mainViewModel.setGameInProgress(true);
         gridSize = mainViewModel.getBoardSize();
         winCond = mainViewModel.getWinCond();
         playAI = mainViewModel.getVsAI();
-
         grid1DArray = mainViewModel.getGame().getGridArray();
         grid2DArray = convert1DArrayTo2DArray(grid1DArray, gridSize);
         movesLeft = mainViewModel.getGame().getMovesLeft();
@@ -101,6 +97,7 @@ public class InGameFragment extends Fragment {
         whosTurn = mainViewModel.getGame().getWhosTurn();
         maxMoveCount = mainViewModel.getGame().getMaxMoveCount();
         winner = mainViewModel.getGame().getWinner();
+
 
 //      Start a timer
         if (savedInstanceState != null) {
@@ -120,7 +117,6 @@ public class InGameFragment extends Fragment {
         movesCountText.setText("Moves Count: " + movesCount);
 
 //      Set player one icon and name
-        Log.d("TEST", "TESt");
         playerOneName.setText(mainViewModel.getPlayerOne().getName());
         playerOneProfile.setImageResource(mainViewModel.getPlayerOne().getResourceId());
 
@@ -149,6 +145,9 @@ public class InGameFragment extends Fragment {
                 boardRowLayout.setOrientation(LinearLayout.VERTICAL);
                 boardRowLayout.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT));
             }
+
+            boardRowLayout.setOrientation(LinearLayout.HORIZONTAL);
+            boardRowLayout.setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
             boardRowLayout.setWeightSum(gridSize);
 //          Adds the linear layout to the board layout
             boardLayout.addView(boardRowLayout);
@@ -387,24 +386,14 @@ public class InGameFragment extends Fragment {
             }
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                restartGame();
-//                mainViewModel.resetPlayers();
-                mainViewModel.setMenuCoordinate(1);
-            }
-        });
-
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                restartGame();
-//                mainViewModel.setGameInProgress(false);
-                mainViewModel.resetPlayers();
-                mainViewModel.setMenuCoordinate(0);
-            }
-        });
+//        settingsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                restartGame();
+////                mainViewModel.resetPlayers();
+//                mainViewModel.setMenuCoordinate(1);
+//            }
+//        });
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -622,6 +611,7 @@ public class InGameFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     restartGame();
+                    mainViewModel.setGameInProgress(true);
                     dialog.dismiss();
                 }
             });
@@ -631,7 +621,6 @@ public class InGameFragment extends Fragment {
                 public void onClick(View view) {
                     restartGame();
                     dialog.dismiss();
-//                    mainViewModel.setGameInProgress(false);
                     mainViewModel.resetPlayers();
                     mainViewModel.setMenuCoordinate(0);
                 }
@@ -640,6 +629,7 @@ public class InGameFragment extends Fragment {
     }
 
     private void displayPauseMessage(Chronometer timer){
+        MainActivityData mainViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
         long pauseOffSet;
         timer.stop();
         pauseOffSet = SystemClock.elapsedRealtime() - timer.getBase();
@@ -658,6 +648,9 @@ public class InGameFragment extends Fragment {
 
 //          Finds the button on the layout
         Button resumeButton = dialog.findViewById(R.id.resumeButton);
+        Button settingsButton = dialog.findViewById(R.id.settingButton);
+        Button saveAndReturnButton = dialog.findViewById(R.id.saveAndReturnButton);
+        Button returnButton = dialog.findViewById(R.id.returnButton);
         resumeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -666,6 +659,32 @@ public class InGameFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                mainViewModel.setMenuCoordinate(1);
+            }
+        });
+        saveAndReturnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                mainViewModel.setMenuCoordinate(0);
+            }
+        });
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restartGame();
+                dialog.dismiss();
+                mainViewModel.resetPlayers();
+                mainViewModel.setMenuCoordinate(0);
+            }
+        });
+
     }
 
     private void displayPopUp() {
@@ -719,6 +738,7 @@ public class InGameFragment extends Fragment {
 
         gridLinkedListString = convertArrayToString(grid1DArray);
         gridLinkedList.insertNode(0, 0, gridLinkedListString);
+        mainViewModel.setGameInProgress(false);
 
 
         timer.setBase(SystemClock.elapsedRealtime());

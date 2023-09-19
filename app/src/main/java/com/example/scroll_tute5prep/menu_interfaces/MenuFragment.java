@@ -74,6 +74,12 @@ public class MenuFragment extends Fragment {
         Button leaderboardButton = rootView.findViewById(R.id.menuLeaderboardButton);
         Button profileButton = rootView.findViewById(R.id.menuProfileButton);
 
+        if (mainViewModel.getGameInProgress()) {
+            startButton.setText("Continue game");
+        } else {
+            startButton.setText("Start game");
+        }
+
         // Set up each button in order; this one enters the mode selection screen
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override

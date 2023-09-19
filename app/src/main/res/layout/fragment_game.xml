@@ -14,13 +14,6 @@
         android:layout_above="@id/playerIcons">
 
         <ImageView
-            android:id="@+id/homeButton"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/home_black"
-            android:layout_alignParentLeft="true"/>
-
-        <ImageView
             android:id="@+id/pauseButton"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -40,6 +33,7 @@
         <!--        Player one icon -->
         <LinearLayout
             android:id="@+id/playerOneLayout"
+
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -183,7 +177,7 @@
     </LinearLayout>
 
     <!--    Bottom Buttons -->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/bottomButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -204,6 +198,8 @@
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:text="Undo"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
             android:background="@drawable/purple_button_white_border"/>
 
         <Button
@@ -215,19 +211,11 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
             android:text="Redo"
             android:background="@drawable/purple_button_white_border"/>
 
-        <Button
-            android:id="@+id/settingsButton"
-            android:layout_marginStart="20dp"
-            android:layout_width="110dp"
-            android:layout_height="70dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:text="Settings"
-            android:background="@drawable/purple_button_white_border"/>
-    </LinearLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

@@ -16,20 +16,64 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
             android:text="Game is paused"
             android:textSize="24sp"
             android:textStyle="bold"/>
 
-        <Button
-            android:id="@+id/resumeButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="20dp"
-            android:background="@drawable/purple_button_white_border"
-            android:textColor="@color/white"
-            android:text="Resume"/>
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Button
+                android:id="@+id/resumeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/purple_button_white_border"
+                android:textColor="@color/white"
+                android:text="Resume"/>
+            <Button
+                android:id="@+id/settingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/purple_button_white_border"
+                android:textColor="@color/white"
+                android:text="Settings"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Button
+                android:id="@+id/saveAndReturnButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/purple_button_white_border"
+                android:textColor="@color/white"
+                android:text="Save and exit"/>
+
+            <Button
+                android:id="@+id/returnButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/purple_button_white_border"
+                android:textColor="@color/white"
+                android:text="Exit"/>
+        </LinearLayout>
+
+
 
 
     </LinearLayout>
