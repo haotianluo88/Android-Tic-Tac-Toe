@@ -1,7 +1,13 @@
 package com.example.scroll_tute5prep;
 
+import android.widget.Chronometer;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.scroll_tute5prep.game.Game;
+import com.example.scroll_tute5prep.game.LinkedList;
+import com.google.android.material.circularreveal.CircularRevealHelper;
 
 import java.util.ArrayList;
 
@@ -33,19 +39,12 @@ public class MainActivityData extends ViewModel {
     public MutableLiveData<User> playerOne;
     public MutableLiveData<User> playerTwo;
     //Users selected as players
-
-
     public MutableLiveData<Boolean> vsAI;
-
     public MutableLiveData<Integer> boardSize; // Determines the dimensions of the board; always a square
     // 2x2, 3x3 (default), 4x4, 5x5, 6x6; determined by 2, 3, 4, 5, 6 respectively
     public MutableLiveData<Integer> winCondition; // Determines how many in a row = a win
     // 2, 3, 4, 5, 6 in a row
-
-    public MutableLiveData<int[]> boardArray;
-
     public MutableLiveData<Game> gameData;
-
     public MutableLiveData<Integer> markerP1; // Determines which marker P1 uses w.r.t. resourceID
     public MutableLiveData<Integer> markerP2; // Determines which marker P2 uses
     // the above 4 MutableLiveData<Integer> values added by ZY
@@ -68,7 +67,6 @@ public class MainActivityData extends ViewModel {
         winCondition = new MutableLiveData<Integer>();
         markerP1 = new MutableLiveData<Integer>();
         markerP2 = new MutableLiveData<Integer>();
-        boardArray = new MutableLiveData<int[]>();
         gameData = new MutableLiveData<Game>();
 
         gameInProgress = new MutableLiveData<Boolean>();
@@ -83,9 +81,9 @@ public class MainActivityData extends ViewModel {
         winCondition.setValue(3); // Default win condition of 3 in a row
         markerP1.setValue(R.drawable.circle_marker_red); // Default markers; Circle for P1, Cross for P2
         markerP2.setValue(R.drawable.cross_marker_blue);
-        gameInProgress.setValue(false);
-        boardArray.setValue(new int[9]);
-        gameData.setValue(new Game(new int[9], 9, 1));
+        gameInProgress.setValue(false);;
+        gameData.setValue(new Game(new int[9], 9, 0, new LinkedList(), 1, 0, 0, null));
+
 
         //for testing purposes create users to see if playerSelection works:)
         currUsers.getValue().add(new User("Janet", R.drawable.profile_2));
@@ -213,18 +211,6 @@ public class MainActivityData extends ViewModel {
         return winCondition.getValue();
     }
 
-    public void setBoardArray(int pSize) {
-        boardArray.setValue(new int[pSize]);
-    }
-
-    public int[] getBoardArray() {
-        return boardArray.getValue();
-    }
-
-    public void resetBoardArray() {
-        boardArray.setValue(new int[boardSize.getValue()* boardSize.getValue()]);
-    }
-
     public Game getGame() {
         return gameData.getValue();
     }
@@ -234,9 +220,13 @@ public class MainActivityData extends ViewModel {
     }
 
     public void resetGame(int gridSize) {
-        gameData.getValue().setGridArray(gridSize * gridSize);
-        gameData.getValue().setMovescount(0);
+        gameData.getValue().setGridArray(new int[gridSize * gridSize]);
+        gameData.getValue().setMovesCount(0);
         gameData.getValue().setMovesLeft(gridSize * gridSize);
+        gameData.getValue().setList(new LinkedList());
+        gameData.getValue().setWhosTurn(1);
+        gameData.getValue().setMaxMoveCount(0);
+        gameData.getValue().setWinner(0);
     }
     // Player 1's marker
     public void setMarkerP1(int pMarker)

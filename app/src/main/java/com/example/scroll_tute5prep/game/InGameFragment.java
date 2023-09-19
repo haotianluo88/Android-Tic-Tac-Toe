@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,12 +55,13 @@ public class InGameFragment extends Fragment {
     int[] grid1DArray;
     int[][] grid2DArray;
     int movesLeft;
-    int whosTurn = 1;
+    int whosTurn;
     int movesCount;
-    int maxMoveCount = 0;
-    int winner = 0;
+    int maxMoveCount;
+    int winner;
     Chronometer timer;
-    LinkedList gridLinkedList = new LinkedList();
+    int timerInt;
+    LinkedList gridLinkedList;
     String gridLinkedListString;
 
     @Override
@@ -93,18 +96,31 @@ public class InGameFragment extends Fragment {
         grid1DArray = mainViewModel.getGame().getGridArray();
         grid2DArray = convert1DArrayTo2DArray(grid1DArray, gridSize);
         movesLeft = mainViewModel.getGame().getMovesLeft();
-        movesCount = mainViewModel.getGame().getMovescount();
+        movesCount = mainViewModel.getGame().getMovesCount();
+        gridLinkedList = mainViewModel.getGame().getList();
+        whosTurn = mainViewModel.getGame().getWhosTurn();
+        maxMoveCount = mainViewModel.getGame().getMaxMoveCount();
+        winner = mainViewModel.getGame().getWinner();
+
 //      Start a timer
+        if (savedInstanceState != null) {
+            timer.setBase(savedInstanceState.getLong("timer"));
+        }
         timer.start();
-        mainViewModel.setGameInProgress(true);
+//        mainViewModel.setGameInProgress(false);
 //      Creates the first entry in the linked list which is an empty array
         gridLinkedListString = convertArrayToString(grid1DArray);
-        gridLinkedList.insertNode(0, 0, gridLinkedListString);
+        if (gridLinkedList.isEmpty())
+        {
+            gridLinkedList.insertNode(0, 0, gridLinkedListString);
+        }
+        mainViewModel.getGame().setList(gridLinkedList);
 
         movesLeftText.setText("Moves Left: " + movesLeft);
         movesCountText.setText("Moves Count: " + movesCount);
 
 //      Set player one icon and name
+        Log.d("TEST", "TESt");
         playerOneName.setText(mainViewModel.getPlayerOne().getName());
         playerOneProfile.setImageResource(mainViewModel.getPlayerOne().getResourceId());
 
@@ -137,16 +153,13 @@ public class InGameFragment extends Fragment {
 //          Adds the linear layout to the board layout
             boardLayout.addView(boardRowLayout);
             for (int j = 0; j < gridSize; j++) {
-//              Creates an image view with properties depending on the orientation of the device
+//              Creates an image view with properties
                 ImageView imageView = new ImageView(getActivity());
                 imageView.setId(i * gridSize + j + 1);
                 imageView.setImageResource(R.drawable.transparent);
                 imageView.setAdjustViewBounds(true);
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    imageView.setLayoutParams(new LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f));
-                } else {
-                    imageView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, 0, 1f));
-                }
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, 1f));
+
                 imageView.setBackground(getActivity().getDrawable(R.drawable.grids));
 
 //              Creates an index
@@ -168,11 +181,15 @@ public class InGameFragment extends Fragment {
 //                              Increment moves count by one and reduce moves left by one
                                 movesCount++;
                                 movesLeft--;
+                                mainViewModel.getGame().setMovesLeft(movesLeft);
+                                mainViewModel.getGame().setMovesCount(movesCount);
 //                              Converts the array into a string to store as history
                                 gridLinkedListString = convertArrayToString(grid1DArray);
                                 gridLinkedList.insertNode(movesCount - 1, movesCount, gridLinkedListString);
+                                mainViewModel.getGame().setList(gridLinkedList);
 //                              Checks whether the game is over or not
                                 winner = checkWin(grid2DArray, gridSize, winCond);
+                                mainViewModel.getGame().setWinner(winner);
 //                              Generate a random number of a square that is not occupied
                                 do {
                                     randomNumber = rn.nextInt((gridSize * gridSize - 1) + 1);
@@ -186,11 +203,15 @@ public class InGameFragment extends Fragment {
 //                                  Increment moves count by one and reduce moves left by one
                                     movesCount++;
                                     movesLeft--;
+                                    mainViewModel.getGame().setMovesLeft(movesLeft);
+                                    mainViewModel.getGame().setMovesCount(movesCount);
 //                                  Converts the array into a string to store as history
                                     gridLinkedListString = convertArrayToString(grid1DArray);
                                     gridLinkedList.insertNode(movesCount - 1, movesCount, gridLinkedListString);
+                                    mainViewModel.getGame().setList(gridLinkedList);
 //                                  Checks whether the game is over or not
                                     winner = checkWin(grid2DArray, gridSize, winCond);
+                                    mainViewModel.getGame().setWinner(winner);
                                 }
 //                              Updates the board's ImageViews
                                 drawGrid(rootView, grid2DArray, gridSize);
@@ -199,6 +220,8 @@ public class InGameFragment extends Fragment {
 //                              Increment moves count by one and reduce moves left by one
                                 movesCount++;
                                 movesLeft--;
+                                mainViewModel.getGame().setMovesLeft(movesLeft);
+                                mainViewModel.getGame().setMovesCount(movesCount);
 //                              Player one's turn
                                 if (whosTurn == 1) {
 //                                  Updates the arrays
@@ -207,10 +230,12 @@ public class InGameFragment extends Fragment {
 //                                  Converts the array into a string to store as history
                                     gridLinkedListString = convertArrayToString(grid1DArray);
                                     gridLinkedList.insertNode(movesCount - 1, movesCount, gridLinkedListString);
+                                    mainViewModel.getGame().setList(gridLinkedList);
 //                                  Changes the turn to player twos
                                     playerOneLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
                                     playerTwoLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_red_border));
                                     whosTurn++;
+                                    mainViewModel.getGame().setWhosTurn(whosTurn);
 //                              Player two's turn
                                 } else if (whosTurn == 2) {
 //                                  Updates the arrays
@@ -219,17 +244,21 @@ public class InGameFragment extends Fragment {
 //                                  Converts the array into a string to store as history
                                     gridLinkedListString = convertArrayToString(grid1DArray);
                                     gridLinkedList.insertNode(movesCount - 1, movesCount, gridLinkedListString);
+                                    mainViewModel.getGame().setList(gridLinkedList);
 //                                  Changes the turn to player ones
                                     playerTwoLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
                                     playerOneLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_red_border));
                                     whosTurn--;
+                                    mainViewModel.getGame().setWhosTurn(whosTurn);
                                 }
 //                              Updates the board's ImageViews
                                 drawGrid(rootView, grid2DArray, gridSize);
 //                              Checks whether the game is over or not
                                 winner = checkWin(grid2DArray, gridSize, winCond);
+                                mainViewModel.getGame().setWinner(winner);
                             }
                             maxMoveCount = movesCount;
+                            mainViewModel.getGame().setMaxMoveCount(maxMoveCount);
 //                          Updates moves count and moves left TextViews;
                             movesLeftText.setText("Moves Left: " + movesLeft);
                             movesCountText.setText("Moves Count: " + movesCount);
@@ -263,19 +292,26 @@ public class InGameFragment extends Fragment {
                     }
 //                  Converts string to array
                     grid1DArray = convertStringToIntArray(gridLinkedListString);
+                    mainViewModel.getGame().setGridArray(grid1DArray);
                     grid2DArray = convert1DArrayTo2DArray(grid1DArray, gridSize);
 //                  Updates board
                     drawGrid(rootView, grid2DArray, gridSize);
 //                  Updates moves count and moves left depending on if playing AI or not
                     movesCount--;
                     movesLeft++;
+                    mainViewModel.getGame().setMovesLeft(movesLeft);
+                    mainViewModel.getGame().setMovesCount(movesCount);
                     if (playAI) {
                         movesCount--;
                         movesLeft++;
+                        mainViewModel.getGame().setMovesLeft(movesLeft);
+                        mainViewModel.getGame().setMovesCount(movesCount);
                     }
 //                  Changes the turn to the opposition. This only applies in two player mode
                     if (whosTurn == 1) {
                         whosTurn++;
+                        mainViewModel.getGame().setWhosTurn(whosTurn);
+
                         // Changes the "whose turn is it?" visual (red circle) accordingly, but only if it's not in AI mode -ZY
                         if(!playAI) {
                             playerOneLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
@@ -283,6 +319,7 @@ public class InGameFragment extends Fragment {
                         }
                     } else {
                         whosTurn--;
+                        mainViewModel.getGame().setWhosTurn(whosTurn);
                         // Changes the "whose turn is it?" visual (red circle) accordingly, but only if it's not in AI mode -ZY
                         if(!playAI) {
                             playerTwoLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
@@ -310,19 +347,25 @@ public class InGameFragment extends Fragment {
                     }
 //                  Converts the string to array
                     grid1DArray = convertStringToIntArray(gridLinkedListString);
+                    mainViewModel.getGame().setGridArray(grid1DArray);
                     grid2DArray = convert1DArrayTo2DArray(grid1DArray, gridSize);
 //                  Updates board
                     drawGrid(rootView, grid2DArray, gridSize);
 //                  Updates moves count and moves left depending on if playing AI or not
                     movesCount++;
                     movesLeft--;
+                    mainViewModel.getGame().setMovesCount(movesCount);
+                    mainViewModel.getGame().setMovesLeft(movesLeft);
                     if (playAI) {
                         movesCount++;
                         movesLeft--;
+                        mainViewModel.getGame().setMovesLeft(movesLeft);
+                        mainViewModel.getGame().setMovesCount(movesCount);
                     }
 //                  Changes the turn to the opposition. This only applies in two player mode
                     if (whosTurn == 1) {
                         whosTurn++;
+                        mainViewModel.getGame().setWhosTurn(whosTurn);
                         // Changes the "whose turn is it?" visual (red circle) accordingly, but only if it's not in AI mode -ZY
                         if(!playAI) {
                             playerOneLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
@@ -330,6 +373,7 @@ public class InGameFragment extends Fragment {
                         }
                     } else {
                         whosTurn--;
+                        mainViewModel.getGame().setWhosTurn(whosTurn);
                         // Changes the "whose turn is it?" visual (red circle) accordingly, but only if it's not in AI mode -ZY
                         if(!playAI) {
                             playerTwoLayout.setBackground(getActivity().getDrawable(R.drawable.purple_button_white_border));
@@ -356,7 +400,7 @@ public class InGameFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 restartGame();
-                mainViewModel.setGameInProgress(false);
+//                mainViewModel.setGameInProgress(false);
                 mainViewModel.resetPlayers();
                 mainViewModel.setMenuCoordinate(0);
             }
@@ -369,6 +413,12 @@ public class InGameFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong("timer", timer.getBase());
     }
 
     //  Draws the grid with the correct information
@@ -581,7 +631,7 @@ public class InGameFragment extends Fragment {
                 public void onClick(View view) {
                     restartGame();
                     dialog.dismiss();
-                    mainViewModel.setGameInProgress(false);
+//                    mainViewModel.setGameInProgress(false);
                     mainViewModel.resetPlayers();
                     mainViewModel.setMenuCoordinate(0);
                 }
@@ -655,23 +705,21 @@ public class InGameFragment extends Fragment {
         TextView movesLeftText = getActivity().findViewById(R.id.movesLeft);
         TextView movesCountText = getActivity().findViewById(R.id.movesCount);
 
-        grid1DArray = new int[gridSize * gridSize];
-        grid2DArray = new int[gridSize][gridSize];
-        movesLeft = gridSize * gridSize;
-        movesCount = 0;
-        maxMoveCount = 0;
-        whosTurn = 1;
-        winner = 0;
+        mainViewModel.resetGame(gridSize);
 
-        gridLinkedList = new LinkedList();
+        gridSize = mainViewModel.getBoardSize();
+        grid1DArray = mainViewModel.getGame().getGridArray();
+        grid2DArray = convert1DArrayTo2DArray(grid1DArray, gridSize);
+        movesLeft = mainViewModel.getGame().getMovesLeft();
+        movesCount = mainViewModel.getGame().getMovesCount();
+        maxMoveCount = mainViewModel.getGame().getMaxMoveCount();
+        whosTurn = mainViewModel.getGame().getWhosTurn();
+        winner = mainViewModel.getGame().getWinner();
+        gridLinkedList = mainViewModel.getGame().getList();
+
         gridLinkedListString = convertArrayToString(grid1DArray);
         gridLinkedList.insertNode(0, 0, gridLinkedListString);
 
-//        mainViewModel.resetBoardArray();
-
-        mainViewModel.getGame().setGridArray(gridSize * gridSize);
-        mainViewModel.getGame().setMovescount(0);
-        mainViewModel.getGame().setMovesLeft(gridSize * gridSize);
 
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
