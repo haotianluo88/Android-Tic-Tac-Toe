@@ -42,9 +42,9 @@
 
     <ImageView
         android:id="@+id/selectHomeButton"
-        android:layout_width="81dp"
-        android:layout_height="76dp"
-        android:src="@drawable/home"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/home_black"
         app:layout_constraintStart_toStartOf="@+id/selectGuideline2"
         app:layout_constraintTop_toTopOf="@+id/selectGuideline1" />
 
