@@ -12,15 +12,15 @@ import com.example.scroll_tute5prep.customise_add_profile.ProfileSelectionFragme
 import com.example.scroll_tute5prep.customise_add_profile.SelectToCustomiseFragment;
 import com.example.scroll_tute5prep.menu_interfaces.LeaderboardFragment;
 import com.example.scroll_tute5prep.menu_interfaces.MenuFragment;
+import com.example.scroll_tute5prep.menu_interfaces.ModeSelectFragment;
 import com.example.scroll_tute5prep.menu_interfaces.SettingsFragment;
 import com.example.scroll_tute5prep.game.InGameFragment;
 
 public class MainActivity extends AppCompatActivity {
-
     ProfileSelectionFragment profileSelectionFragment = new ProfileSelectionFragment();
     SelectToCustomiseFragment selectToCustomiseFragment = new SelectToCustomiseFragment();
     PlayerSelectionFragment selectPlayers = new PlayerSelectionFragment();
-    AIOrPlayerFragment AIOrP = new AIOrPlayerFragment();
+    ModeSelectFragment AIOrP = new ModeSelectFragment();
     MenuFragment home = new MenuFragment();
     SettingsFragment settings = new SettingsFragment();
     LeaderboardFragment leaderboards = new LeaderboardFragment();

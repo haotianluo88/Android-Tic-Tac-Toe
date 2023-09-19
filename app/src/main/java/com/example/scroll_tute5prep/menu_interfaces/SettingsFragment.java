@@ -242,16 +242,21 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) // When an item is selected
             {
-                switch(pos) // Look at what position the Spinner has selected
+                if(pos == 0)
                 {
-                    case 0: // Set to cross
-                        mainViewModel.setMarkerP1(R.drawable.cross_marker_red);
-                    case 1: // Set to circle
-                        mainViewModel.setMarkerP1(R.drawable.circle_marker_red);
-                    case 2: // Set to square
-                        mainViewModel.setMarkerP1(R.drawable.square_marker_red);
-                    case 3: // Set to triangle
-                        mainViewModel.setMarkerP1(R.drawable.triangle_marker_red);
+                    mainViewModel.setMarkerP1(R.drawable.cross_marker_red);
+                }
+                else if(pos == 1)
+                {
+                    mainViewModel.setMarkerP1(R.drawable.circle_marker_red);
+                }
+                else if(pos == 2)
+                {
+                    mainViewModel.setMarkerP1(R.drawable.square_marker_red);
+                }
+                else if(pos == 3)
+                {
+                    mainViewModel.setMarkerP1(R.drawable.triangle_marker_red);
                 }
             }
             @Override
@@ -265,16 +270,21 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l)
             {
-                switch(pos) // Look at what position the Spinner has selected
+                if(pos == 0)
                 {
-                    case 0: // Set to cross
-                        mainViewModel.setMarkerP2(R.drawable.cross_marker_blue);
-                    case 1: // Set to circle
-                        mainViewModel.setMarkerP2(R.drawable.circle_marker_blue);
-                    case 2: // Set to square
-                        mainViewModel.setMarkerP2(R.drawable.square_marker_blue);
-                    case 3: // Set to triangle
-                        mainViewModel.setMarkerP2(R.drawable.triangle_marker_blue);
+                    mainViewModel.setMarkerP1(R.drawable.cross_marker_blue);
+                }
+                else if(pos == 1)
+                {
+                    mainViewModel.setMarkerP1(R.drawable.circle_marker_blue);
+                }
+                else if(pos == 2)
+                {
+                    mainViewModel.setMarkerP1(R.drawable.square_marker_blue);
+                }
+                else if(pos == 3)
+                {
+                    mainViewModel.setMarkerP1(R.drawable.triangle_marker_blue);
                 }
             }
             @Override
