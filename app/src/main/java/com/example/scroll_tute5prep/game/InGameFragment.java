@@ -106,6 +106,9 @@ public class InGameFragment extends Fragment {
         Button undoButton = rootView.findViewById(R.id.undoButton);
         Button redoButton = rootView.findViewById(R.id.redoButton);
         Button settingsButton = rootView.findViewById(R.id.settingsButton);
+        ImageView homeButton = rootView.findViewById(R.id.homeButton);
+        ImageView pauseButton = rootView.findViewById(R.id.pauseButton);
+
 
         // Creating our MainActivityData in order to fetch information to and from other parts of the app
         MainActivityData mainViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
@@ -255,6 +258,8 @@ public class InGameFragment extends Fragment {
                             movesCountText.setText("Moves Count: " + String.valueOf(movesCount));
 //                          Displays game over pop up
                             displayGameOverMessage(winner, timer, mainViewModel);
+                        } else {
+                            displayPopUp();
                         }
                     }
                 });
@@ -346,7 +351,23 @@ public class InGameFragment extends Fragment {
                 mainViewModel.setMenuCoordinate(1);
             }
         });
-//        //////////Settings button just resets the game right now
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restartGame();
+                mainViewModel.setGameInProgress(false);
+                mainViewModel.resetPlayers();
+                mainViewModel.setMenuCoordinate(0);
+            }
+        });
+
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayPauseMessage(timer);
+            }
+        });
         return rootView;
     }
 
@@ -547,6 +568,47 @@ public class InGameFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void displayPauseMessage(Chronometer timer){
+        long pauseOffSet;
+        timer.stop();
+        pauseOffSet = SystemClock.elapsedRealtime() - timer.getBase();
+
+
+//          Creates dialog
+        Dialog dialog = new Dialog(getActivity());
+//          Set the layout for the dialog
+        dialog.setContentView(R.layout.pause_layout);
+//          Makes the layout undismissable
+        dialog.setCanceledOnTouchOutside(false);
+//          Makes it so the rounded corners of the layout is transparent
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+
+//          Finds the button on the layout
+        Button resumeButton = dialog.findViewById(R.id.resumeButton);
+        resumeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.setBase(SystemClock.elapsedRealtime() - pauseOffSet);
+                timer.start();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void displayPopUp() {
+//      Creates dialog
+        Dialog dialog = new Dialog(getActivity());
+//      Set the layout for the dialog
+        dialog.setContentView(R.layout.invalid_move_layout);
+//      Makes it so the rounded corners of the layout is transparent
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+
     }
 
 //  Converts a 1D array into a 2D array

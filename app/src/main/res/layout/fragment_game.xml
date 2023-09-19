@@ -6,11 +6,32 @@
     tools:context=".game.InGameFragment"
     android:background="@color/green">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:layout_above="@id/playerIcons">
+
+        <ImageView
+            android:id="@+id/homeButton"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/home_black"
+            android:layout_alignParentLeft="true"/>
+
+        <ImageView
+            android:id="@+id/pauseButton"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/pause_black"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
     <!--    Player icons -->
     <LinearLayout
         android:id="@+id/playerIcons"
         android:layout_above="@id/timerLayout"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
