@@ -1,4 +1,4 @@
-package com.example.scroll_tute5prep;
+package com.example.mad_tictactoe;
 /*
 * Self Explanatory GameStat Object
 * By Janet Joy

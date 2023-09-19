@@ -1,4 +1,4 @@
-package com.example.scroll_tute5prep;
+package com.example.mad_tictactoe;
 
 import android.os.Bundle;
 
@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-
-import com.example.scroll_tute5prep.customise_add_profile.SelectToCustomiseAdapter;
 
 import java.util.ArrayList;
 

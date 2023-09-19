@@ -1,13 +1,10 @@
-package com.example.scroll_tute5prep;
-
-import android.widget.Chronometer;
+package com.example.mad_tictactoe;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.scroll_tute5prep.game.Game;
-import com.example.scroll_tute5prep.game.LinkedList;
-import com.google.android.material.circularreveal.CircularRevealHelper;
+import com.example.mad_tictactoe.game.Game;
+import com.example.mad_tictactoe.game.LinkedList;
 
 import java.util.ArrayList;
 

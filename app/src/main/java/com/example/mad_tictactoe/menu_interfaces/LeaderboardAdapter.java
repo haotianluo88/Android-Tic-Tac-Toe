@@ -1,12 +1,12 @@
-package com.example.scroll_tute5prep.menu_interfaces;
+package com.example.mad_tictactoe.menu_interfaces;
 
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.scroll_tute5prep.R;
-import com.example.scroll_tute5prep.User;
+import com.example.mad_tictactoe.R;
+import com.example.mad_tictactoe.User;
 
 import java.util.ArrayList;
 
@@ -32,6 +32,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardViewHold
     public void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position) {
         User theUser = userData.get(position);
         holder.profileImage.setImageResource(theUser.getResourceId());
+        holder.userName.setText(theUser.getName());
         holder.winRate.setText(String.format("%.0f",(theUser.getGameStat()).getWinRate()) + "%");
         holder.countWin.setText("Wins: " + (theUser.getGameStat()).getWins());
         holder.countLose.setText("Losses: " + (theUser.getGameStat()).getLoses());

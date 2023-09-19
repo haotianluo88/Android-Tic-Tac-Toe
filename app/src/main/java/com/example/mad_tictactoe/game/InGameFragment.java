@@ -1,4 +1,4 @@
-package com.example.scroll_tute5prep.game;
+package com.example.mad_tictactoe.game;
 
 import android.app.Dialog;
 import android.content.res.Configuration;
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.scroll_tute5prep.MainActivityData;
-import com.example.scroll_tute5prep.R;
+import com.example.mad_tictactoe.MainActivityData;
+import com.example.mad_tictactoe.R;
 
 import java.util.Arrays;
 import java.util.Random;

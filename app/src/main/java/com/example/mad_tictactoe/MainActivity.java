@@ -1,4 +1,4 @@
-package com.example.scroll_tute5prep;
+package com.example.mad_tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
-import com.example.scroll_tute5prep.customise_add_profile.ProfileSelectionFragment;
-import com.example.scroll_tute5prep.customise_add_profile.SelectToCustomiseFragment;
-import com.example.scroll_tute5prep.menu_interfaces.LeaderboardFragment;
-import com.example.scroll_tute5prep.menu_interfaces.MenuFragment;
-import com.example.scroll_tute5prep.menu_interfaces.ModeSelectFragment;
-import com.example.scroll_tute5prep.menu_interfaces.SettingsFragment;
-import com.example.scroll_tute5prep.game.InGameFragment;
+import com.example.mad_tictactoe.customise_add_profile.ProfileSelectionFragment;
+import com.example.mad_tictactoe.customise_add_profile.SelectToCustomiseFragment;
+import com.example.mad_tictactoe.menu_interfaces.LeaderboardFragment;
+import com.example.mad_tictactoe.menu_interfaces.MenuFragment;
+import com.example.mad_tictactoe.menu_interfaces.ModeSelectFragment;
+import com.example.mad_tictactoe.menu_interfaces.SettingsFragment;
+import com.example.mad_tictactoe.game.InGameFragment;
 
 public class MainActivity extends AppCompatActivity {
     ProfileSelectionFragment profileSelectionFragment = new ProfileSelectionFragment();

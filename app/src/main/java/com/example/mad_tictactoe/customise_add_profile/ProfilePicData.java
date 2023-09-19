@@ -1,7 +1,7 @@
-package com.example.scroll_tute5prep.customise_add_profile;
+package com.example.mad_tictactoe.customise_add_profile;
 
 
-import com.example.scroll_tute5prep.R;
+import com.example.mad_tictactoe.R;
 
 import java.util.ArrayList;
 

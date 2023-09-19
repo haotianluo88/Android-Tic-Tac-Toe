@@ -1,4 +1,4 @@
-package com.example.scroll_tute5prep.customise_add_profile;
+package com.example.mad_tictactoe.customise_add_profile;
 
 import android.os.Bundle;
 
@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.scroll_tute5prep.MainActivityData;
-import com.example.scroll_tute5prep.R;
-import com.example.scroll_tute5prep.User;
+import com.example.mad_tictactoe.MainActivityData;
+import com.example.mad_tictactoe.R;
+import com.example.mad_tictactoe.User;
 
 import java.util.ArrayList;
 

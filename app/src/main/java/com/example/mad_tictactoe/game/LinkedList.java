@@ -1,4 +1,4 @@
-package com.example.scroll_tute5prep.game;
+package com.example.mad_tictactoe.game;
 public class LinkedList {
 // Linked list nodes holds the data and the previous and next node
     private class LinkedListNode {

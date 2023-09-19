@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.scroll_tute5prep"
+    namespace = "com.example.mad_tictactoe"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.scroll_tute5prep"
+        applicationId = "com.example.mad_tictactoe"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

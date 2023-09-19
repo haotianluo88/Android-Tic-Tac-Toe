@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Scroll-Tute5prep"
+rootProject.name = "MAD_TicTacToe"
 include(":app")
  

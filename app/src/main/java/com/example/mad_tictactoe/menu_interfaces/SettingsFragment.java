@@ -1,4 +1,4 @@
-package com.example.scroll_tute5prep.menu_interfaces;
+package com.example.mad_tictactoe.menu_interfaces;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 
-import com.example.scroll_tute5prep.MainActivityData;
-import com.example.scroll_tute5prep.R;
-import com.example.scroll_tute5prep.game.LinkedList;
+import com.example.mad_tictactoe.MainActivityData;
+import com.example.mad_tictactoe.R;
+import com.example.mad_tictactoe.game.LinkedList;
 
 /**
  * A simple {@link Fragment} subclass.
