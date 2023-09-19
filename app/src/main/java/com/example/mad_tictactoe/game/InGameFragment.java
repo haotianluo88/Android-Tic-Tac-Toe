@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.example.mad_tictactoe.R;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class InGameFragment extends Fragment {
@@ -35,12 +38,9 @@ public class InGameFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     int gridSize;
@@ -56,6 +56,7 @@ public class InGameFragment extends Fragment {
     Chronometer timer;
     LinkedList gridLinkedList;
     String gridLinkedListString;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,10 +95,11 @@ public class InGameFragment extends Fragment {
 
 
 //      Start a timer
-        if (savedInstanceState != null) {
-            timer.setBase(savedInstanceState.getLong("timer"));
-        }
+
+        timer.setBase(SystemClock.elapsedRealtime() - mainViewModel.getGame().getTimer());
+        mainViewModel.getGame().setTimer(timer.getBase());
         timer.start();
+
 //      Creates the first entry in the linked list which is an empty array
         gridLinkedListString = convertArrayToString(grid1DArray);
         if (gridLinkedList.isEmpty())
@@ -138,6 +140,7 @@ public class InGameFragment extends Fragment {
                 boardRowLayout.setOrientation(LinearLayout.VERTICAL);
                 boardRowLayout.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT));
             }
+            mainViewModel.getGame().setTimer(timer.getBase());
 
             boardRowLayout.setWeightSum(gridSize);
 //          Adds the linear layout to the board layout
@@ -390,6 +393,7 @@ public class InGameFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong("timer", timer.getBase());
+
     }
 
     //  Draws the grid with the correct information
@@ -614,6 +618,7 @@ public class InGameFragment extends Fragment {
 
     private void displayPauseMessage(Chronometer timer){
         MainActivityData mainViewModel = new ViewModelProvider(getActivity()).get(MainActivityData.class);
+
         long pauseOffSet;
         timer.stop();
         pauseOffSet = SystemClock.elapsedRealtime() - timer.getBase();
@@ -638,7 +643,8 @@ public class InGameFragment extends Fragment {
         resumeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer.setBase(SystemClock.elapsedRealtime() - pauseOffSet);
+                mainViewModel.getGame().setTimer(SystemClock.elapsedRealtime() - pauseOffSet);
+                timer.setBase(mainViewModel.getGame().getTimer());
                 timer.start();
                 dialog.dismiss();
             }
@@ -647,8 +653,9 @@ public class InGameFragment extends Fragment {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
                 mainViewModel.setMenuCoordinate(1);
+                timer.setBase(mainViewModel.getGame().getTimer());
+                dialog.dismiss();
             }
         });
         saveAndReturnButton.setOnClickListener(new View.OnClickListener() {

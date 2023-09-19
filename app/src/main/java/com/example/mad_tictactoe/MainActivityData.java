@@ -79,8 +79,8 @@ public class MainActivityData extends ViewModel {
         winCondition.setValue(3); // Default win condition of 3 in a row
         markerP1.setValue(R.drawable.circle_marker_red); // Default markers; Circle for P1, Cross for P2
         markerP2.setValue(R.drawable.cross_marker_blue);
-        gameInProgress.setValue(false);;
-        gameData.setValue(new Game(new int[9], 9, 0, new LinkedList(), 1, 0, 0, null));
+        gameInProgress.setValue(false);
+        gameData.setValue(new Game(new int[9], 9, 0, new LinkedList(), 1, 0, 0, 0));
 
 
         //for testing purposes create users to see if playerSelection works:)
@@ -225,6 +225,7 @@ public class MainActivityData extends ViewModel {
         gameData.getValue().setWhosTurn(1);
         gameData.getValue().setMaxMoveCount(0);
         gameData.getValue().setWinner(0);
+        gameData.getValue().setTimer(0);
     }
     // Player 1's marker
     public void setMarkerP1(int pMarker)

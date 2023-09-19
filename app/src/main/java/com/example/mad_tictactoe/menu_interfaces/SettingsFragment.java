@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +80,8 @@ public class SettingsFragment extends Fragment {
         Spinner markerSpinner1 = rootView.findViewById(R.id.spinnerMarker1);
         Spinner markerSpinner2 = rootView.findViewById(R.id.spinnerMarker2);
 
+        long pauseOffSet = mainViewModel.getGame().getTimer();
+
         // Creating an ArrayAdapter for each spinner
         ArrayAdapter<CharSequence> boardAdapter = ArrayAdapter.createFromResource(getContext(), R.array.board_sizes, android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> winAdapter = ArrayAdapter.createFromResource(getContext(), R.array.win_conditions, android.R.layout.simple_spinner_item);
@@ -141,6 +145,7 @@ public class SettingsFragment extends Fragment {
             {
                 if(mainViewModel.getGameInProgress())
                 {
+                    mainViewModel.getGame().setTimer(SystemClock.elapsedRealtime() - pauseOffSet);
                     mainViewModel.setStartGameCoordinate(3); // Set coordinate to go back to home screen
                     mainViewModel.setMenuCoordinate(3);
                 }
@@ -169,12 +174,6 @@ public class SettingsFragment extends Fragment {
                             mainViewModel.setGameInProgress(false); // Set this to false, which SHOULD CLEAR ALL THINGS RELATED TO THE GAME IN MainActivity
                             mainViewModel.setBoardSize(pos + 2); // Set new board size
                             mainViewModel.getGame().setGridArray(new int[(pos + 2) * (pos + 2)]);
-                            mainViewModel.getGame().setMovesCount(0);
-                            mainViewModel.getGame().setMovesLeft((pos + 2) * (pos + 2));
-                            mainViewModel.getGame().setList(new LinkedList());
-                            mainViewModel.getGame().setWhosTurn(1);
-                            mainViewModel.getGame().setMaxMoveCount(0);
-                            mainViewModel.getGame().setWinner(0);
                         }
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -199,12 +198,6 @@ public class SettingsFragment extends Fragment {
                 {
                     mainViewModel.setBoardSize(pos + 2); // New board size with no resistance
                     mainViewModel.getGame().setGridArray(new int[(pos + 2) * (pos + 2)]);
-                    mainViewModel.getGame().setMovesCount(0);
-                    mainViewModel.getGame().setMovesLeft((pos + 2) * (pos + 2));
-                    mainViewModel.getGame().setList(new LinkedList());
-                    mainViewModel.getGame().setWhosTurn(1);
-                    mainViewModel.getGame().setMaxMoveCount(0);
-                    mainViewModel.getGame().setWinner(0);
                 }
             }
             @Override

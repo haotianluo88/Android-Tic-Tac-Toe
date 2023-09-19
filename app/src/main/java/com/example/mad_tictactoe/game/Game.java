@@ -6,13 +6,13 @@ public class Game {
     private int[] gridArray;
     private int movesCount;
     private int movesLeft;
-    Chronometer timer;
+    long timer;
     LinkedList list;
     int whosTurn;
     int maxMoveCount;
     int winner;
 
-    public Game(int[] inGridArray, int inMovesLeft, int inMovesCount, LinkedList inList, int inWhosTurn, int inMaxMoveCount, int inWinner, Chronometer inTimer){
+    public Game(int[] inGridArray, int inMovesLeft, int inMovesCount, LinkedList inList, int inWhosTurn, int inMaxMoveCount, int inWinner, long inTimer){
         gridArray = inGridArray;
         movesCount = inMovesCount;
         movesLeft = inMovesLeft;
@@ -47,11 +47,11 @@ public class Game {
         this.movesLeft = movesLeft;
     }
 
-    public Chronometer getTimer() {
+    public long getTimer() {
         return timer;
     }
 
-    public void setTimer(Chronometer timer) {
+    public void setTimer(long timer) {
         this.timer = timer;
     }
 
