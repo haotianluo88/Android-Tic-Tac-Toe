@@ -77,9 +77,12 @@ public class MenuFragment extends Fragment {
         // Set up each button in order; this one enters the mode selection screen
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                mainViewModel.setStartGameCoordinate(1); // Set coordinate to enter the mode selection screen
+            public void onClick(View view) {
+                if (mainViewModel.getGameInProgress()) {
+                    mainViewModel.setStartGameCoordinate(3);
+                } else {
+                    mainViewModel.setStartGameCoordinate(1); // Set coordinate to enter the mode selection screen
+                }
             }
         });
 
